@@ -1,5 +1,5 @@
 
-const { sendEmail } = require('../utils/emailService');
+const axios = require('axios');
 require('dotenv').config();
 
 const quotes = [
@@ -61,7 +61,24 @@ const sendMotivationMail = async () => {
         </html>
     `;
 
-    await sendEmail("srisrikanthtvs@gmail.com", subject, htmlContent);
+    try {
+        const emailData = {
+            service_id: process.env.EMAILJS_SERVICE_ID,
+            template_id: process.env.EMAILJS_TEMPLATE_ID,
+            user_id: process.env.EMAILJS_PUBLIC_KEY,
+            accessToken: process.env.EMAILJS_PRIVATE_KEY,
+            template_params: {
+                to_email: "srisrikanthtvs@gmail.com", // Or make this dynamic if needed
+                subject: subject,
+                message: htmlContent
+            }
+        };
+
+        await axios.post('https://api.emailjs.com/api/v1.0/email/send', emailData);
+        console.log('✅ Motivation Email sent via EmailJS');
+    } catch (error) {
+        console.error('EmailJS Error:', error.response?.data || error.message);
+    }
 };
 
 sendMotivationMail();

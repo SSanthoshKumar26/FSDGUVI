@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose');
-const { sendEmail } = require('../utils/emailService');
+const axios = require('axios');
 const Transaction = require('../models/Transaction');
 require('dotenv').config();
 
