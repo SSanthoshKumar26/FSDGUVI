@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-accent-cyan: var(--color-accent-cyan);
+  --color-accent-green: var(--color-accent-green);
+  --color-accent-pink: var(--color-accent-pink);
+  --color-text-main: var(--color-text-main);
+  --color-text-muted: var(--color-text-muted);
+  --color-bg-overlay: var(--color-bg-overlay);
+  --color-border: var(--color-border);
+}
+
+:root {
+  /* Dark Theme (Default) */
+  --color-primary: #0f172a;
+  /* Slate 900 */
+  --color-secondary: #1e293b;
+  /* Slate 800 */
+  --color-accent-cyan: #22d3ee;
+  /* Cyan 400 */
+  --color-accent-green: #34d399;
+  /* Emerald 400 */
+  --color-accent-pink: #f472b6;
+  /* Pink 400 */
+  --color-text-main: #f8fafc;
+  /* Slate 50 */
+  --color-text-muted: #94a3b8;
+  /* Slate 400 */
+  --color-bg-overlay: rgba(30, 41, 59, 0.4);
+  --color-border: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="light"] {
+  --color-primary: #f1f5f9;
+  /* Slate 100 */
+  --color-secondary: #ffffff;
+  /* White */
+  --color-accent-cyan: #0891b2;
+  /* Cyan 600 */
+  --color-accent-green: #059669;
+  /* Emerald 600 */
+  --color-accent-pink: #db2777;
+  /* Pink 600 */
+  --color-text-main: #0f172a;
+  /* Slate 900 */
+  --color-text-muted: #64748b;
+  /* Slate 500 */
+  --color-bg-overlay: rgba(255, 255, 255, 0.6);
+  --color-border: rgba(0, 0, 0, 0.05);
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--color-primary);
+  color: var(--color-text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-text-muted);
+  border-radius: 10px;
+  opacity: 0.5;
+}
