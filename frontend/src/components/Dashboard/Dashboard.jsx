@@ -243,56 +243,73 @@ const DashboardStyled = styled.div`
         flex-wrap: wrap;
         gap: 1rem;
 
-        h1 { margin: 0; font-size: 1.8rem; font-weight: 800; color: #f8fafc; }
+        h1 { margin: 0; font-size: 1.8rem; font-weight: 800; color: var(--color-text-main); }
         
         @media (max-width: 768px) {
             flex-direction: column;
             align-items: flex-start;
-            h1 { font-size: 1.5rem; }
+            h1 { font-size: 1.5rem; width: 100%; text-align: left; }
         }
 
         .actions-container {
              display: flex;
              align-items: center;
              gap: 1rem;
-             width: 100%;
-             justify-content: space-between;
+             width: auto;
+             
+             @media (max-width: 768px) {
+                 width: 100%;
+                 justify-content: space-between;
+             }
              
              @media (max-width: 480px) {
                  flex-direction: column;
                  align-items: stretch;
+                 gap: 0.8rem;
              }
         }
 
         .balance-highlight {
-            background: rgba(34, 211, 238, 0.05);
+            background: rgba(34, 211, 238, 0.1);
             padding: 0.6rem 1.2rem;
             border-radius: 16px;
             border: 1px solid rgba(34, 211, 238, 0.2);
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            span { color: #94a3b8; font-size: 0.8rem; font-weight: 600; }
-            h2 { font-size: 1.3rem; margin: 0; font-weight: 800; }
-            .positive { color: #10b981; }
-            .negative { color: #f43f5e; }
+            white-space: nowrap;
+            span { color: var(--color-text-muted); font-size: 0.8rem; font-weight: 600; }
+            h2 { font-size: 1.3rem; margin: 0; font-weight: 800; color: var(--color-text-main); }
+            .positive { color: var(--color-accent-green); }
+            .negative { color: var(--color-accent-pink); }
+            
+            @media (max-width: 480px) {
+                justify-content: center;
+                width: 100%;
+            }
         }
     }
 
     .mail-trigger-btn {
         background: rgba(244, 114, 182, 0.1);
-        color: #f472b6;
+        color: var(--color-accent-pink);
         border: 1px solid rgba(244, 114, 182, 0.2);
         padding: 0.6rem 1.2rem;
         border-radius: 14px;
         cursor: pointer;
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 0.6rem;
         font-weight: 700;
         font-size: 0.9rem;
         transition: all 0.3s ease;
+        white-space: nowrap;
         &:disabled { opacity: 0.4; cursor: not-allowed; }
+        
+        @media (max-width: 480px) {
+            width: 100%;
+        }
     }
 
     .top-layout {
@@ -300,23 +317,30 @@ const DashboardStyled = styled.div`
         grid-template-columns: 1fr 1.5fr;
         gap: 1.5rem;
         margin-bottom: 2rem;
+        
         @media (max-width: 1024px) { grid-template-columns: 1fr; }
     }
 
     .health-card {
-        background: #1e293b;
+        background: var(--color-secondary);
         border-radius: 24px;
         padding: 1.5rem;
         display: flex;
         align-items: center;
         gap: 1.5rem;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        border: 1px solid var(--color-border);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 
         @media (max-width: 480px) {
-            flex-direction: column;
-            text-align: center;
             padding: 1.2rem;
+            .score-ring { margin-bottom: 0; }
+            /* Keep horizontal on mobile if possible, looks better */
+        }
+        
+        /* Stack if critically small */
+        @media (max-width: 360px) {
+             flex-direction: column;
+             text-align: center;
         }
 
         .score-ring {
@@ -327,10 +351,10 @@ const DashboardStyled = styled.div`
             
             svg {
                 transform: rotate(-90deg);
-                path.bg { fill: none; stroke: #334155; stroke-width: 4; }
+                path.bg { fill: none; stroke: var(--color-border); stroke-width: 4; }
                 path.progress { 
                     fill: none; 
-                    stroke: #22d3ee; 
+                    stroke: var(--color-accent-cyan); 
                     stroke-width: 4; 
                     stroke-linecap: round;
                 }
@@ -342,37 +366,37 @@ const DashboardStyled = styled.div`
                 left: 50%;
                 transform: translate(-50%, -50%);
                 text-align: center;
-                span { font-size: 1.2rem; font-weight: 800; color: #f8fafc; display: block; }
-                p { font-size: 0.6rem; color: #94a3b8; margin: 0; text-transform: uppercase; font-weight: 700; }
+                span { font-size: 1.2rem; font-weight: 800; color: var(--color-text-main); display: block; }
+                p { font-size: 0.6rem; color: var(--color-text-muted); margin: 0; text-transform: uppercase; font-weight: 700; }
             }
         }
 
         .health-info {
-            h4 { margin: 0 0 0.3rem 0; color: #f8fafc; font-size: 1rem; font-weight: 700; }
-            p { margin: 0; font-size: 0.8rem; color: #94a3b8; line-height: 1.4; }
+            h4 { margin: 0 0 0.3rem 0; color: var(--color-text-main); font-size: 1rem; font-weight: 700; }
+            p { margin: 0; font-size: 0.8rem; color: var(--color-text-muted); line-height: 1.4; }
         }
     }
 
     .quote-card {
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: var(--color-secondary);
+        border: 1px solid var(--color-border);
         border-radius: 24px;
         padding: 1.5rem;
         display: flex;
         gap: 1.5rem;
         align-items: center;
         backdrop-filter: blur(10px);
+        min-height: 120px;
 
         @media (max-width: 480px) {
-            flex-direction: column;
-            text-align: center;
             padding: 1.2rem;
-            .quote-icon { width: 45px; height: 45px; font-size: 1.1rem; }
+            .quote-icon { width: 40px; height: 40px; font-size: 1rem; }
+            .quote-content p { font-size: 0.9rem; }
         }
 
         .quote-icon {
             background: rgba(34, 211, 238, 0.1);
-            color: #22d3ee;
+            color: var(--color-accent-cyan);
             width: 50px;
             height: 50px;
             border-radius: 16px;
@@ -384,30 +408,38 @@ const DashboardStyled = styled.div`
         }
 
         .quote-content {
-            p { margin: 0; font-size: 1rem; font-style: italic; color: #f1f5f9; line-height: 1.5; font-weight: 500; }
-            span { display: block; margin-top: 0.5rem; font-size: 0.85rem; color: #64748b; font-weight: 600; }
+            p { margin: 0; font-size: 1rem; font-style: italic; color: var(--color-text-main); line-height: 1.5; font-weight: 500; }
+            span { display: block; margin-top: 0.5rem; font-size: 0.85rem; color: var(--color-text-muted); font-weight: 600; }
         }
     }
 
     .stats-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 1.2rem;
+        gap: 1rem;
         margin-bottom: 2rem;
         
-        @media (max-width: 480px) {
+        @media (max-width: 600px) {
+             /* Allow 2 columns on larger phones, but ensure minimal width */
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        }
+        
+        /* 1 column for very small phones */
+        @media (max-width: 350px) {
             grid-template-columns: 1fr;
         }
 
         .stat-card {
-            background: #1e293b;
+            background: var(--color-secondary);
             padding: 1.5rem;
             border-radius: 20px;
             display: flex;
             align-items: center;
-            gap: 1.2rem;
-            border: 1px solid rgba(255,255,255,0.05);
+            gap: 1rem;
+            border: 1px solid var(--color-border);
             transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+
             &:hover { transform: translateY(-5px); border-color: rgba(34, 211, 238, 0.3); }
 
             .icon {
@@ -419,14 +451,23 @@ const DashboardStyled = styled.div`
                 justify-content: center;
                 font-size: 1.4rem;
                 color: #fff;
+                flex-shrink: 0;
             }
             
             &.income .icon { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
             &.expense .icon { background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); }
             &.balance .icon { background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%); }
+            
+            /* Vertical layout for card content on extremely small widths or dense grid */
+            @media (max-width: 400px) {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+                padding: 1.2rem;
+            }
 
-            p { color: #94a3b8; font-size: 0.85rem; margin-bottom: 0.2rem; font-weight: 600; }
-            h3 { font-size: 1.5rem; margin: 0; font-weight: 800; color: #f8fafc; }
+            p { color: var(--color-text-muted); font-size: 0.85rem; margin-bottom: 0.2rem; font-weight: 600; }
+            h3 { font-size: 1.5rem; margin: 0; font-weight: 800; color: var(--color-text-main); word-break: break-word; }
         }
     }
 
@@ -437,22 +478,43 @@ const DashboardStyled = styled.div`
         @media (max-width: 1200px) { grid-template-columns: 1fr; }
 
         .chart-section {
-            background: #1e293b;
+            background: var(--color-secondary);
             border-radius: 24px;
             padding: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--color-border);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            /* CRITICAL: min-width: 0 prevents grid item layout blowout */
+            min-width: 0;
+            overflow: hidden; 
             
-            h3, h4 { margin-top: 0; margin-bottom: 1.5rem; color: #f8fafc; font-size: 1.2rem; font-weight: 700; }
+            @media (max-width: 480px) {
+                padding: 1rem;
+            }
+            
+            h3, h4 { margin-top: 0; margin-bottom: 1.5rem; color: var(--color-text-main); font-size: 1.2rem; font-weight: 700; }
 
-            .chart-container{ height: 300px; margin-bottom: 2rem; }
+            .chart-container { 
+                height: 300px; 
+                margin-bottom: 2rem; 
+                position: relative; /* Essential for Chart.js resizing */
+                width: 100%;
+                
+                @media (max-width: 480px) {
+                    height: 220px; /* Reduce height for small screens */
+                }
+            }
 
             .doughnut-container {
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                border-top: 1px solid var(--color-border);
                 padding-top: 1.5rem;
-                .doughnut-wrapper { height: 250px; width: 100%; }
+                .doughnut-wrapper { 
+                    height: 250px; 
+                    width: 100%; 
+                    position: relative; 
+                }
                 
                 @media (max-width: 600px) {
-                    .doughnut-wrapper { height: 350px; }
+                    .doughnut-wrapper { height: 220px; }
                 }
             }
         }
@@ -461,23 +523,32 @@ const DashboardStyled = styled.div`
              display: flex;
              flex-direction: column;
              gap: 1.5rem;
+             min-width: 0; /* consistent shrinking */
              
              .min-max-stats {
                  display: grid;
                  grid-template-columns: 1fr 1fr;
                  gap: 1rem;
+                 
+                 @media (max-width: 400px) {
+                     grid-template-columns: 1fr;
+                 }
+                 
                  .mm-item {
-                     background: #1e293b;
+                     background: var(--color-secondary);
                      padding: 1.2rem;
                      border-radius: 18px;
-                     border: 1px solid rgba(255, 255, 255, 0.05);
+                     border: 1px solid var(--color-border);
                      text-align: center;
-                     p { color: #94a3b8; font-size: 0.75rem; margin-bottom: 0.5rem; font-weight: 700; text-transform: uppercase; }
-                     span { color: #f1f5f9; font-weight: 800; font-size: 1.1rem; }
+                     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+
+                     p { color: var(--color-text-muted); font-size: 0.75rem; margin-bottom: 0.5rem; font-weight: 700; text-transform: uppercase; }
+                     span { color: var(--color-text-main); font-weight: 800; font-size: 1.1rem; }
                  }
              }
         }
     }
+
 `;
 
 export default Dashboard

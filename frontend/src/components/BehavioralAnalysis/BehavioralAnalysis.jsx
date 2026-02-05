@@ -202,11 +202,12 @@ function BehavioralAnalysis() {
 
 const AnalysisStyled = styled.div`
     margin-top: 2rem;
+    width: 100%;
     
     .section-title {
         margin-bottom: 2rem;
-        h3 { display: flex; align-items: center; gap: 1rem; color: #f8fafc; font-size: 1.5rem; margin: 0; svg { color: #818cf8; } }
-        p { color: #94a3b8; font-size: 0.9rem; margin-top: 0.5rem; }
+        h3 { display: flex; align-items: center; gap: 1rem; color: var(--color-text-main); font-size: 1.5rem; margin: 0; svg { color: #818cf8; } }
+        p { color: var(--color-text-muted); font-size: 0.9rem; margin-top: 0.5rem; }
     }
 
     .analysis-grid {
@@ -219,12 +220,18 @@ const AnalysisStyled = styled.div`
         }
 
         .card {
-            background: #1e293b;
+            background: var(--color-secondary);
             border-radius: 24px;
             padding: 1.8rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--color-border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            min-width: 0; /* Prevent grid overflow */
             
-            h4 { color: #f8fafc; margin-top: 0; margin-bottom: 1.5rem; font-size: 1.1rem; border-left: 4px solid #818cf8; padding-left: 10px; }
+            @media (max-width: 480px) {
+                padding: 1.2rem;
+            }
+            
+            h4 { color: var(--color-text-main); margin-top: 0; margin-bottom: 1.5rem; font-size: 1.1rem; border-left: 4px solid #818cf8; padding-left: 10px; }
         }
 
         .full-width { grid-column: 1 / -1; }
@@ -238,20 +245,21 @@ const AnalysisStyled = styled.div`
             display: flex;
             align-items: center;
             gap: 1rem;
-            .icon { font-size: 1.2rem; }
+            .icon { font-size: 1.2rem; flex-shrink: 0; }
             .info {
                 flex: 1;
-                .label { font-size: 0.85rem; color: #e2e8f0; margin-bottom: 0.4rem; }
+                min-width: 0;
+                .label { font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 0.4rem;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
                 .bar-container {
                     height: 6px;
-                    background: #334155;
+                    background: rgba(0,0,0,0.1);
                     border-radius: 3px;
                     .bar { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
                 }
             }
-            .val { font-size: 0.9rem; font-weight: 700; color: #f1f5f9; }
+            .val { font-size: 0.9rem; font-weight: 700; color: var(--color-text-main); white-space: nowrap; }
         }
-        .nomsg { color: #64748b; font-style: italic; text-align: center; }
+        .nomsg { color: var(--color-text-muted); font-style: italic; text-align: center; }
     }
 
     .habit-list {
@@ -263,15 +271,18 @@ const AnalysisStyled = styled.div`
             border: 1px solid rgba(239, 68, 68, 0.1);
             padding: 1.2rem;
             border-radius: 16px;
+            @media (max-width: 480px) { padding: 1rem; }
+            
             .header {
                 display: flex;
                 align-items: center;
                 gap: 0.8rem;
                 margin-bottom: 0.5rem;
-                span { font-weight: 700; color: #f8fafc; }
-                small { margin-left: auto; color: #fb7185; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; }
+                flex-wrap: wrap; /* allow wrap on very small screens */
+                span { font-weight: 700; color: var(--color-text-main); }
+                small { margin-left: auto; color: #fb7185; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; }
             }
-            p { margin: 0; font-size: 0.85rem; color: #94a3b8; line-height: 1.5; }
+            p { margin: 0; font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.5; }
         }
         .perfect-habit {
             display: flex;
@@ -279,7 +290,7 @@ const AnalysisStyled = styled.div`
             justify-content: center;
             gap: 1rem;
             height: 100px;
-            color: #34d399;
+            color: var(--color-accent-green);
             font-weight: 600;
         }
     }
@@ -290,13 +301,15 @@ const AnalysisStyled = styled.div`
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
             .target-selector {
                 font-size: 0.9rem;
-                color: #94a3b8;
+                color: var(--color-text-muted);
                 select {
-                    background: #334155;
+                    background: rgba(0,0,0,0.05);
                     border: none;
-                    color: #fff;
+                    color: var(--color-text-main);
                     padding: 0.3rem 0.6rem;
                     border-radius: 8px;
                     margin-left: 0.5rem;
@@ -309,37 +322,40 @@ const AnalysisStyled = styled.div`
             display: flex;
             align-items: center;
             gap: 3rem;
-            @media (max-width: 768px) { flex-direction: column; gap: 1.5rem; }
+            @media (max-width: 768px) { flex-direction: column; gap: 1.5rem; align-items: stretch; }
 
             .gauge {
                 text-align: center;
                 padding: 2rem;
-                background: rgba(255, 255, 255, 0.02);
+                background: rgba(0,0,0,0.02);
                 border-radius: 20px;
-                border: 1px dashed rgba(255, 255, 255, 0.1);
+                border: 1px dashed var(--color-border);
                 min-width: 200px;
-                .gauge-val { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -1px; }
-                .gauge-label { font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; }
+                @media (max-width: 480px) { padding: 1.5rem; width: 100%; min-width: 0; }
+                
+                .gauge-val { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -1px; color: var(--color-text-main); word-break: break-all; }
+                .gauge-label { font-size: 0.8rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 2px; }
             }
 
             .progress-info {
                 flex: 1;
                 width: 100%;
+                min-width: 0;
                 .prog-text {
                     display: flex;
                     justify-content: space-between;
                     margin-bottom: 0.8rem;
-                    span { font-size: 0.95rem; font-weight: 600; color: #e2e8f0; }
+                    span { font-size: 0.95rem; font-weight: 600; color: var(--color-text-main); }
                 }
                 .main-bar {
                     height: 12px;
-                    background: #334155;
+                    background: rgba(0,0,0,0.1);
                     border-radius: 6px;
                     margin-bottom: 1rem;
                     overflow: hidden;
                     .fill { height: 100%; border-radius: 6px; }
                 }
-                .status-msg { margin: 0; font-size: 0.85rem; color: #94a3b8; line-height: 1.6; }
+                .status-msg { margin: 0; font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.6; }
             }
         }
     }

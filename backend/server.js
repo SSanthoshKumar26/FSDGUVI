@@ -24,7 +24,7 @@ app.use('/api/v1/mail', mailRoutes);
 const connectDB = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URI);
-        console.log('MongoDB Sandbox Connected');
+        console.log('MongoDB Connected');
     } catch (err) {
         console.error('DB Connection Error:', err);
     }

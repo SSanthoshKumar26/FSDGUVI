@@ -1,7 +1,7 @@
 const Transaction = require('../models/Transaction');
 
 exports.addTransaction = async (req, res) => {
-    const { title, amount, category, description, date, type, division } = req.body;
+    const { title, amount, category, description, date, type, division, paymentMethod } = req.body;
 
     const transaction = Transaction({
         title,
@@ -10,7 +10,8 @@ exports.addTransaction = async (req, res) => {
         description,
         date,
         type,
-        division
+        division,
+        paymentMethod
     });
 
     try {

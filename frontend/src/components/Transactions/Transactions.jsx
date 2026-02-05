@@ -91,6 +91,9 @@ function Transactions({ filterType = 'all' }) {
                                                 <p><FaCalendar /> {dateFormat(date)}</p>
                                                 <p className="description"><FaCommentDots /> {description}</p>
                                                 <span className="category-pill">{category}</span>
+                                                <span className="category-pill" style={{ background: 'rgba(255, 255, 255, 0.1)', color: 'var(--color-text-muted)' }}>
+                                                    {transaction.paymentMethod || 'Cash'}
+                                                </span>
                                             </div>
                                             <div className="btn-con">
                                                 {canEdit(createdAt) && (

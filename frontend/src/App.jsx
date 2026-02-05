@@ -294,7 +294,7 @@ const AppStyled = styled.div`
   }
 
   .floating-btn{
-      position: absolute;
+      position: fixed;
       bottom: 40px;
       right: 40px;
       width: 64px;
@@ -308,14 +308,21 @@ const AppStyled = styled.div`
       font-size: 1.8rem;
       cursor: pointer;
       box-shadow: 0 10px 25px rgba(34, 211, 238, 0.4);
-      z-index: 30;
+      z-index: 50;
       
       @media (max-width: 768px) {
-          bottom: 20px;
-          right: 20px;
+          bottom: 30px;
+          right: 30px;
           width: 56px;
           height: 56px;
           font-size: 1.5rem;
+      }
+      
+      /* Safe area support for newer phones */
+      @supports (padding-bottom: env(safe-area-inset-bottom)) {
+          @media (max-width: 768px) {
+              bottom: calc(30px + env(safe-area-inset-bottom));
+          }
       }
   }
 `;

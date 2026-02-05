@@ -33,22 +33,22 @@
 }
 
 [data-theme="light"] {
-  --color-primary: #f1f5f9;
-  /* Slate 100 */
+  --color-primary: #f8fafc;
+  /* Slate 50 - Very subtle off-white */
   --color-secondary: #ffffff;
-  /* White */
-  --color-accent-cyan: #0891b2;
-  /* Cyan 600 */
+  /* Pure White */
+  --color-accent-cyan: #0284c7;
+  /* Sky 600 - Good contrast */
   --color-accent-green: #059669;
   /* Emerald 600 */
   --color-accent-pink: #db2777;
   /* Pink 600 */
-  --color-text-main: #0f172a;
-  /* Slate 900 */
+  --color-text-main: #1e293b;
+  /* Slate 800 - High contrast text */
   --color-text-muted: #64748b;
   /* Slate 500 */
-  --color-bg-overlay: rgba(255, 255, 255, 0.6);
-  --color-border: rgba(0, 0, 0, 0.05);
+  --color-bg-overlay: rgba(255, 255, 255, 0.85);
+  --color-border: rgba(0, 0, 0, 0.1);
 }
 
 body {

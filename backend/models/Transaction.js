@@ -24,6 +24,11 @@ const transactionSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    paymentMethod: {
+        type: String,
+        enum: ['Cash', 'Card', 'UPI', 'Bank Transfer', 'Other'],
+        default: 'Cash'
+    },
     division: {
         type: String,
         default: 'Personal'

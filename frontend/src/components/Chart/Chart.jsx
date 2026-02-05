@@ -64,24 +64,26 @@ function Chart() {
         ]
     }
 
+    const getStyle = (variable) => getComputedStyle(document.documentElement).getPropertyValue(variable).trim();
+
     const options = {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
             legend: {
                 labels: {
-                    color: '#94a3b8' // Slate 400
+                    color: getStyle('--color-text-muted') || '#94a3b8'
                 }
             }
         },
         scales: {
             x: {
-                ticks: { color: '#94a3b8' },
-                grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                ticks: { color: getStyle('--color-text-muted') || '#94a3b8' },
+                grid: { color: getStyle('--color-border') || 'rgba(0,0,0,0.1)' }
             },
             y: {
-                ticks: { color: '#94a3b8' },
-                grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                ticks: { color: getStyle('--color-text-muted') || '#94a3b8' },
+                grid: { color: getStyle('--color-border') || 'rgba(0,0,0,0.1)' }
             }
         }
     }
@@ -95,9 +97,11 @@ function Chart() {
 }
 
 const ChartStyled = styled.div`
-    background: transparent; // Let parent control bg
+    background: transparent;
     height: 100%;
     width: 100%;
+    position: relative; /* Crucial for responsiveness */
+    min-width: 0;
 `;
 
 export default Chart

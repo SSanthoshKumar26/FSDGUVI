@@ -16,12 +16,13 @@ function Form({ closeCallback }) {
         description: '',
         type: 'income',
         division: 'Personal',
-        emotion: 'neutral'
+        emotion: 'neutral',
+        paymentMethod: 'Cash'
     })
     const [loading, setLoading] = useState(false);
     const [successMsg, setSuccessMsg] = useState('');
 
-    const { title, amount, date, category, description, type, division, emotion } = inputState;
+    const { title, amount, date, category, description, type, division, emotion, paymentMethod } = inputState;
 
     const handleInput = name => e => {
         setInputState({ ...inputState, [name]: e.target.value })
@@ -58,7 +59,8 @@ function Form({ closeCallback }) {
                 category: '',
                 description: '',
                 type: type,
-                division: division
+                division: division,
+                paymentMethod: 'Cash'
             })
 
             // Auto close after short delay
@@ -161,6 +163,16 @@ function Form({ closeCallback }) {
                     <select required value={division} name="division" id="division" onChange={handleInput('division')}>
                         <option value="Personal">Personal</option>
                         <option value="Office">Office</option>
+                    </select>
+                </div>
+                <div className="input-control">
+                    <label>Payment Method</label>
+                    <select value={paymentMethod} name="paymentMethod" id="paymentMethod" onChange={handleInput('paymentMethod')}>
+                        <option value="Cash">Cash 💵</option>
+                        <option value="Card">Card 💳</option>
+                        <option value="UPI">UPI 📱</option>
+                        <option value="Bank Transfer">Bank 🏦</option>
+                        <option value="Other">Other 🔄</option>
                     </select>
                 </div>
                 <div className="input-control" style={{ display: type === 'expense' ? 'block' : 'none' }}>

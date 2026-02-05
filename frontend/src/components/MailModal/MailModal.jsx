@@ -83,25 +83,25 @@ const ModalOverlay = styled(motion.div)`
 `;
 
 const ModalContent = styled(motion.div)`
-    background: #1e293b;
+    background: var(--color-secondary);
     width: 90%;
     max-width: 450px;
     padding: 3rem 2.5rem;
     border-radius: 32px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     position: relative;
     text-align: center;
 
     h2 {
-        color: #f8fafc;
+        color: var(--color-text-main);
         font-size: 1.8rem;
         margin-bottom: 0.5rem;
         font-weight: 800;
     }
 
     p {
-        color: #94a3b8;
+        color: var(--color-text-muted);
         font-size: 1rem;
         margin-bottom: 2rem;
         line-height: 1.5;
@@ -110,7 +110,7 @@ const ModalContent = styled(motion.div)`
     small {
         display: block;
         margin-top: 1.5rem;
-        color: #64748b;
+        color: var(--color-text-muted);
         font-size: 0.8rem;
     }
 `;
@@ -119,9 +119,9 @@ const CloseButton = styled.button`
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: none;
-    color: #94a3b8;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
     width: 35px;
     height: 35px;
     border-radius: 50%;
@@ -131,15 +131,16 @@ const CloseButton = styled.button`
     cursor: pointer;
     transition: all 0.2s;
     &:hover {
-        background: rgba(244, 63, 94, 0.2);
+        background: rgba(244, 63, 94, 0.1);
         color: #f43f5e;
+        border-color: #f43f5e;
     }
 `;
 
 const IconWrapper = styled.div`
     width: 70px;
     height: 70px;
-    background: linear-gradient(135deg, #22d3ee 0%, #0ea5e9 100%);
+    background: linear-gradient(135deg, var(--color-accent-cyan) 0%, #0ea5e9 100%);
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -159,36 +160,40 @@ const InputGroup = styled.div`
         left: 1.2rem;
         top: 50%;
         transform: translateY(-50%);
-        color: #64748b;
+        color: var(--color-text-muted);
         font-size: 1.1rem;
     }
 
     input {
         width: 100%;
-        background: rgba(15, 23, 42, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.03); 
+        border: 1px solid var(--color-border);
         padding: 1rem 1.2rem 1rem 3.2rem;
         border-radius: 16px;
-        color: #f8fafc;
+        color: var(--color-text-main);
         font-size: 1rem;
         transition: all 0.3s;
         outline: none;
 
+        [data-theme="dark"] & {
+             background: rgba(15, 23, 42, 0.6);
+        }
+
         &:focus {
-            border-color: #22d3ee;
-            background: rgba(15, 23, 42, 0.8);
+            border-color: var(--color-accent-cyan);
+            background: transparent;
             box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.1);
         }
 
         &::placeholder {
-            color: #475569;
+            color: var(--color-text-muted);
         }
     }
 `;
 
 const SubmitButton = styled(motion.button)`
     width: 100%;
-    background: linear-gradient(135deg, #22d3ee 0%, #0ea5e9 100%);
+    background: linear-gradient(135deg, var(--color-accent-cyan) 0%, #0ea5e9 100%);
     color: white;
     border: none;
     padding: 1rem;

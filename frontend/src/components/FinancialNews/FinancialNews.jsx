@@ -92,15 +92,15 @@ function FinancialNews() {
 }
 
 const NewsStyled = styled(motion.div)`
-    background: #1e293b;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--color-secondary);
+    border: 1px solid var(--color-border);
     border-radius: 20px;
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     min-height: 250px;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
 
     .news-header {
         display: flex;
@@ -111,7 +111,7 @@ const NewsStyled = styled(motion.div)`
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            color: #f8fafc;
+            color: var(--color-text-main);
             font-weight: 700;
             font-size: 0.9rem;
             svg { color: #f59e0b; }
@@ -147,8 +147,8 @@ const NewsStyled = styled(motion.div)`
                 text-transform: uppercase;
                 margin-bottom: 0.8rem;
             }
-            h4 { margin: 0 0 0.5rem 0; color: #f1f5f9; font-size: 1.1rem; line-height: 1.4; }
-            p { margin: 0; color: #94a3b8; font-size: 0.85rem; line-height: 1.5; }
+            h4 { margin: 0 0 0.5rem 0; color: var(--color-text-main); font-size: 1.1rem; line-height: 1.4; }
+            p { margin: 0; color: var(--color-text-muted); font-size: 0.85rem; line-height: 1.5; }
         }
     }
 
@@ -157,13 +157,13 @@ const NewsStyled = styled(motion.div)`
         display: flex;
         gap: 1rem;
         padding-top: 1rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        border-top: 1px solid var(--color-border);
         .q-item {
             display: flex;
             align-items: center;
             gap: 0.4rem;
             font-size: 0.75rem;
-            color: #64748b;
+            color: var(--color-text-muted);
             font-weight: 600;
         }
     }

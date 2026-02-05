@@ -108,12 +108,17 @@ function FinancialAdvisor() {
 }
 
 const AdvisorStyled = styled(motion.div)`
-    background: #1e293b;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--color-secondary);
+    border: 1px solid var(--color-border);
     border-radius: 24px;
     padding: 2rem;
     margin-top: 2rem;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    
+    @media (max-width: 480px) {
+        padding: 1rem;
+        border-radius: 16px;
+    }
 
     .advisor-header {
         margin-bottom: 2rem;
@@ -121,30 +126,31 @@ const AdvisorStyled = styled(motion.div)`
             display: flex;
             align-items: center;
             gap: 1rem;
-            color: #f8fafc;
+            color: var(--color-text-main);
             font-size: 1.5rem;
             margin: 0;
-            svg { color: #22d3ee; }
+            svg { color: var(--color-accent-cyan); }
         }
-        p { color: #94a3b8; margin-top: 0.5rem; font-size: 0.9rem; }
+        p { color: var(--color-text-muted); margin-top: 0.5rem; font-size: 0.9rem; }
     }
 
     .stats-indicator {
         margin-bottom: 2rem;
         .status-label {
-            color: #f8fafc;
+            color: var(--color-text-main);
             font-size: 0.9rem;
             margin-bottom: 0.8rem;
-            span { font-weight: 700; color: #22d3ee; }
+            span { font-weight: 700; color: var(--color-accent-cyan); }
         }
         .progress-bar {
             height: 10px;
-            background: #334155;
+            background: rgba(0,0,0,0.1);
             border-radius: 5px;
             overflow: hidden;
+            [data-theme='dark'] & { background: #334155; }
             .fill {
                 height: 100%;
-                background: linear-gradient(90deg, #22d3ee, #0ea5e9);
+                background: linear-gradient(90deg, var(--color-accent-cyan), #0ea5e9);
             }
         }
     }
@@ -153,15 +159,26 @@ const AdvisorStyled = styled(motion.div)`
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 1.5rem;
+        
+        @media (max-width: 600px) {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
     }
 
     .advice-card {
-        background: rgba(255, 255, 255, 0.03);
+        background: rgba(0,0,0,0.02);
         padding: 1.5rem;
         border-radius: 16px;
         display: flex;
         gap: 1rem;
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--color-border);
+        transition: all 0.3s ease;
+        
+        @media (max-width: 480px) {
+            padding: 1rem;
+            gap: 0.8rem;
+        }
 
         .icon {
             width: 45px;
@@ -175,8 +192,9 @@ const AdvisorStyled = styled(motion.div)`
         }
 
         .text {
-            h4 { margin: 0 0 0.5rem 0; font-size: 1rem; color: #f8fafc; }
-            p { margin: 0; font-size: 0.85rem; color: #94a3b8; line-height: 1.5; }
+            min-width: 0; /* Important for flex child wrapping */
+            h4 { margin: 0 0 0.5rem 0; font-size: 1rem; color: var(--color-text-main); word-wrap: break-word; }
+            p { margin: 0; font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.5; word-wrap: break-word; }
         }
     }
 `;
