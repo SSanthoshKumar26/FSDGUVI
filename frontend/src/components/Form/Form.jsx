@@ -250,6 +250,11 @@ const FormStyled = styled.form`
             color: var(--color-text-muted);
             opacity: 0.5;
         }
+
+        option {
+            background: var(--color-secondary);
+            color: var(--color-text-main);
+        }
     }
     
     .form-grid {
