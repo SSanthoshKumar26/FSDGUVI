@@ -7,15 +7,14 @@ const BASE_URL = `${API_URL}/api/v1`;
 const GlobalContext = React.createContext();
 
 export const GlobalProvider = ({ children }) => {
-    const [transactions, setTransactions] = useState([]); // always array
+    const [transactions, setTransactions] = useState([]);
     const [error, setError] = useState(null);
 
-    // ✅ Fetch transactions
+    // Fetch transactions
     const getTransactions = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/get-transactions`);
 
-            // normalize backend response
             const txns = Array.isArray(response.data)
                 ? response.data
                 : response.data.data || response.data.transactions || [];
@@ -27,7 +26,7 @@ export const GlobalProvider = ({ children }) => {
         }
     };
 
-    // ✅ Add transaction
+    // Add transaction
     const addTransaction = async (transaction) => {
         try {
             await axios.post(`${BASE_URL}/add-transaction`, transaction);
@@ -38,7 +37,7 @@ export const GlobalProvider = ({ children }) => {
         }
     };
 
-    // ✅ Delete transaction
+    // Delete transaction
     const deleteTransaction = async (id) => {
         try {
             await axios.delete(`${BASE_URL}/delete-transaction/${id}`);
@@ -48,7 +47,6 @@ export const GlobalProvider = ({ children }) => {
         }
     };
 
-    // ✅ Safe derived data
     const incomes = transactions.filter(t => t.type === "income");
     const expenses = transactions.filter(t => t.type === "expense");
 
@@ -65,7 +63,6 @@ export const GlobalProvider = ({ children }) => {
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
             .slice(0, 5);
 
-    // ✅ Trigger summary mail
     const triggerSummaryMail = async (email) => {
         try {
             const response = await axios.post(
@@ -80,23 +77,21 @@ export const GlobalProvider = ({ children }) => {
     };
 
     return (
-        <GlobalContext.Provider
-            value={{
-                getTransactions,
-                addTransaction,
-                deleteTransaction,
-                triggerSummaryMail,
-                transactions,
-                incomes,
-                expenses,
-                totalIncome,
-                totalExpense,
-                totalBalance,
-                transactionHistory,
-                error,
-                setError,
-            }}
-        >
+        <GlobalContext.Provider value={{
+            getTransactions,
+            addTransaction,
+            deleteTransaction,
+            triggerSummaryMail,
+            transactions,
+            incomes,
+            expenses,
+            totalIncome,
+            totalExpense,
+            totalBalance,
+            transactionHistory,
+            error,
+            setError
+        }}>
             {children}
         </GlobalContext.Provider>
     );
