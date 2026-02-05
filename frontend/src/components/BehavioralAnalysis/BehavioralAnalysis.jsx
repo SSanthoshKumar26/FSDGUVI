@@ -307,13 +307,27 @@ const AnalysisStyled = styled.div`
                 font-size: 0.9rem;
                 color: var(--color-text-muted);
                 select {
-                    background: rgba(0,0,0,0.05);
-                    border: none;
+                    background: var(--color-primary);
+                    border: 1px solid var(--color-border);
                     color: var(--color-text-main);
-                    padding: 0.3rem 0.6rem;
-                    border-radius: 8px;
-                    margin-left: 0.5rem;
+                    padding: 0.4rem 0.8rem;
+                    border-radius: 10px;
+                    margin-left: 0.8rem;
                     outline: none;
+                    cursor: pointer;
+                    font-weight: 600;
+                    font-size: 0.85rem;
+                    transition: all 0.3s ease;
+
+                    &:hover {
+                        border-color: var(--color-accent-cyan);
+                    }
+
+                    option {
+                        background: var(--color-secondary);
+                        color: var(--color-text-main);
+                        padding: 10px;
+                    }
                 }
             }
         }
