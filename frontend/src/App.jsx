@@ -251,6 +251,12 @@ const AppStyled = styled.div`
     display: flex;
     flex-direction: column;
 
+    @media (max-width: 1024px) {
+        border-radius: 0;
+        margin: 0;
+        height: 100vh;
+    }
+
     .top-bar {
        height: 60px;
        display: flex;

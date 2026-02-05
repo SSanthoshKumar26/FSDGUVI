@@ -285,8 +285,28 @@ const TransactionsStyled = styled.div`
         .transaction-item {
             flex-direction: column;
             align-items: flex-start;
-            .icon { width: 40px; height: 40px; font-size: 1rem; margin-bottom: 0.5rem; }
-            .content { width: 100%; }
+            padding: 1rem;
+            .icon { width: 45px; height: 45px; font-size: 1.1rem; margin-bottom: 0.5rem; }
+            .content { 
+                width: 100%; 
+                .title-row {
+                    h5 { font-size: 1.1rem; }
+                    .amount { font-size: 1.1rem; }
+                }
+                .text {
+                    gap: 1rem;
+                    p { font-size: 0.8rem; }
+                }
+            }
+        }
+        .header-actions {
+            flex-direction: column;
+            align-items: flex-start;
+            .filters {
+                width: 100%;
+                flex-direction: column;
+                .search-box, .category-select { width: 100%; }
+            }
         }
     }
 `;

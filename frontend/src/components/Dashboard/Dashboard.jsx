@@ -239,28 +239,41 @@ const DashboardStyled = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 2.5rem;
+        margin-bottom: 2rem;
         flex-wrap: wrap;
-        gap: 1.5rem;
+        gap: 1rem;
 
-        h1 { margin: 0; font-size: 2rem; font-weight: 800; color: #f8fafc; }
+        h1 { margin: 0; font-size: 1.8rem; font-weight: 800; color: #f8fafc; }
         
+        @media (max-width: 768px) {
+            flex-direction: column;
+            align-items: flex-start;
+            h1 { font-size: 1.5rem; }
+        }
+
         .actions-container {
              display: flex;
              align-items: center;
-             gap: 1.5rem;
+             gap: 1rem;
+             width: 100%;
+             justify-content: space-between;
+             
+             @media (max-width: 480px) {
+                 flex-direction: column;
+                 align-items: stretch;
+             }
         }
 
         .balance-highlight {
             background: rgba(34, 211, 238, 0.05);
-            padding: 0.6rem 1.8rem;
+            padding: 0.6rem 1.2rem;
             border-radius: 16px;
             border: 1px solid rgba(34, 211, 238, 0.2);
             display: flex;
             align-items: center;
-            gap: 1rem;
-            span { color: #94a3b8; font-size: 0.9rem; font-weight: 600; }
-            h2 { font-size: 1.6rem; margin: 0; font-weight: 800; }
+            gap: 0.8rem;
+            span { color: #94a3b8; font-size: 0.8rem; font-weight: 600; }
+            h2 { font-size: 1.3rem; margin: 0; font-weight: 800; }
             .positive { color: #10b981; }
             .negative { color: #f43f5e; }
         }
@@ -270,47 +283,55 @@ const DashboardStyled = styled.div`
         background: rgba(244, 114, 182, 0.1);
         color: #f472b6;
         border: 1px solid rgba(244, 114, 182, 0.2);
-        padding: 0.7rem 1.4rem;
+        padding: 0.6rem 1.2rem;
         border-radius: 14px;
         cursor: pointer;
         display: flex;
         align-items: center;
-        gap: 0.8rem;
+        gap: 0.6rem;
         font-weight: 700;
+        font-size: 0.9rem;
         transition: all 0.3s ease;
         &:disabled { opacity: 0.4; cursor: not-allowed; }
     }
 
     .top-layout {
         display: grid;
-        grid-template-columns: 1fr 2fr;
-        gap: 2rem;
-        margin-bottom: 2.5rem;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
         @media (max-width: 1024px) { grid-template-columns: 1fr; }
     }
 
     .health-card {
         background: #1e293b;
         border-radius: 24px;
-        padding: 1.8rem;
+        padding: 1.5rem;
         display: flex;
         align-items: center;
-        gap: 1.8rem;
+        gap: 1.5rem;
         border: 1px solid rgba(255, 255, 255, 0.05);
         box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 
+        @media (max-width: 480px) {
+            flex-direction: column;
+            text-align: center;
+            padding: 1.2rem;
+        }
+
         .score-ring {
-            width: 90px;
-            height: 90px;
+            width: 80px;
+            height: 80px;
             position: relative;
+            flex-shrink: 0;
             
             svg {
                 transform: rotate(-90deg);
-                path.bg { fill: none; stroke: #334155; stroke-width: 3.5; }
+                path.bg { fill: none; stroke: #334155; stroke-width: 4; }
                 path.progress { 
                     fill: none; 
                     stroke: #22d3ee; 
-                    stroke-width: 3.5; 
+                    stroke-width: 4; 
                     stroke-linecap: round;
                 }
             }
@@ -321,14 +342,14 @@ const DashboardStyled = styled.div`
                 left: 50%;
                 transform: translate(-50%, -50%);
                 text-align: center;
-                span { font-size: 1.4rem; font-weight: 800; color: #f8fafc; display: block; }
-                p { font-size: 0.65rem; color: #94a3b8; margin: 0; text-transform: uppercase; font-weight: 700; }
+                span { font-size: 1.2rem; font-weight: 800; color: #f8fafc; display: block; }
+                p { font-size: 0.6rem; color: #94a3b8; margin: 0; text-transform: uppercase; font-weight: 700; }
             }
         }
 
         .health-info {
-            h4 { margin: 0 0 0.4rem 0; color: #f8fafc; font-size: 1.1rem; font-weight: 700; }
-            p { margin: 0; font-size: 0.85rem; color: #94a3b8; line-height: 1.4; }
+            h4 { margin: 0 0 0.3rem 0; color: #f8fafc; font-size: 1rem; font-weight: 700; }
+            p { margin: 0; font-size: 0.8rem; color: #94a3b8; line-height: 1.4; }
         }
     }
 
@@ -336,110 +357,123 @@ const DashboardStyled = styled.div`
         background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 24px;
-        padding: 1.8rem;
+        padding: 1.5rem;
         display: flex;
-        gap: 1.8rem;
+        gap: 1.5rem;
         align-items: center;
         backdrop-filter: blur(10px);
+
+        @media (max-width: 480px) {
+            flex-direction: column;
+            text-align: center;
+            padding: 1.2rem;
+            .quote-icon { width: 45px; height: 45px; font-size: 1.1rem; }
+        }
 
         .quote-icon {
             background: rgba(34, 211, 238, 0.1);
             color: #22d3ee;
-            width: 55px;
-            height: 55px;
-            border-radius: 18px;
+            width: 50px;
+            height: 50px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             flex-shrink: 0;
         }
 
         .quote-content {
-            p { margin: 0; font-size: 1.15rem; font-style: italic; color: #f1f5f9; line-height: 1.6; font-weight: 500; }
-            span { display: block; margin-top: 0.7rem; font-size: 0.95rem; color: #64748b; font-weight: 600; }
+            p { margin: 0; font-size: 1rem; font-style: italic; color: #f1f5f9; line-height: 1.5; font-weight: 500; }
+            span { display: block; margin-top: 0.5rem; font-size: 0.85rem; color: #64748b; font-weight: 600; }
         }
     }
 
     .stats-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 1.8rem;
-        margin-bottom: 2.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.2rem;
+        margin-bottom: 2rem;
+        
+        @media (max-width: 480px) {
+            grid-template-columns: 1fr;
+        }
 
         .stat-card {
             background: #1e293b;
-            padding: 1.8rem;
-            border-radius: 24px;
+            padding: 1.5rem;
+            border-radius: 20px;
             display: flex;
             align-items: center;
-            gap: 1.8rem;
+            gap: 1.2rem;
             border: 1px solid rgba(255,255,255,0.05);
             transition: all 0.3s ease;
-            &:hover { transform: translateY(-8px); border-color: rgba(34, 211, 238, 0.3); }
+            &:hover { transform: translateY(-5px); border-color: rgba(34, 211, 238, 0.3); }
 
             .icon {
-                width: 55px;
-                height: 55px;
-                border-radius: 18px;
+                width: 50px;
+                height: 50px;
+                border-radius: 16px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 1.6rem;
+                font-size: 1.4rem;
                 color: #fff;
             }
             
-            &.income .icon { background: linear-gradient(135deg, #10b981 0%, #059669 100%); box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2); }
-            &.expense .icon { background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); box-shadow: 0 10px 20px rgba(244, 63, 94, 0.2); }
-            &.balance .icon { background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%); box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2); }
-            &.count .icon { box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2); }
+            &.income .icon { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+            &.expense .icon { background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); }
+            &.balance .icon { background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%); }
 
-            p { color: #94a3b8; font-size: 0.95rem; margin-bottom: 0.3rem; font-weight: 600; }
-            h3 { font-size: 1.7rem; margin: 0; font-weight: 800; color: #f8fafc; letter-spacing: -0.5px; }
+            p { color: #94a3b8; font-size: 0.85rem; margin-bottom: 0.2rem; font-weight: 600; }
+            h3 { font-size: 1.5rem; margin: 0; font-weight: 800; color: #f8fafc; }
         }
     }
 
     .main-grid {
         display: grid;
         grid-template-columns: 1.8fr 1fr;
-        gap: 2.5rem;
+        gap: 2rem;
         @media (max-width: 1200px) { grid-template-columns: 1fr; }
 
         .chart-section {
             background: #1e293b;
             border-radius: 24px;
-            padding: 2rem;
+            padding: 1.5rem;
             border: 1px solid rgba(255, 255, 255, 0.05);
             
-            h3, h4 { margin-top: 0; margin-bottom: 2rem; color: #f8fafc; font-size: 1.3rem; font-weight: 700; }
+            h3, h4 { margin-top: 0; margin-bottom: 1.5rem; color: #f8fafc; font-size: 1.2rem; font-weight: 700; }
 
-            .chart-container{ height: 350px; margin-bottom: 2.5rem; }
+            .chart-container{ height: 300px; margin-bottom: 2rem; }
 
             .doughnut-container {
                 border-top: 1px solid rgba(255, 255, 255, 0.1);
-                padding-top: 2rem;
-                .doughnut-wrapper { height: 280px; width: 100%; }
-                .no-data { color: #64748b; font-style: italic; text-align: center; padding: 2rem; }
+                padding-top: 1.5rem;
+                .doughnut-wrapper { height: 250px; width: 100%; }
+                
+                @media (max-width: 600px) {
+                    .doughnut-wrapper { height: 350px; }
+                }
             }
         }
 
         .history-section {
              display: flex;
              flex-direction: column;
-             gap: 2rem;
+             gap: 1.5rem;
              
              .min-max-stats {
                  display: grid;
                  grid-template-columns: 1fr 1fr;
-                 gap: 1.5rem;
+                 gap: 1rem;
                  .mm-item {
                      background: #1e293b;
-                     padding: 1.5rem;
-                     border-radius: 20px;
+                     padding: 1.2rem;
+                     border-radius: 18px;
                      border: 1px solid rgba(255, 255, 255, 0.05);
                      text-align: center;
-                     p { color: #94a3b8; font-size: 0.85rem; margin-bottom: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-                     span { color: #f1f5f9; font-weight: 800; font-size: 1.3rem; }
+                     p { color: #94a3b8; font-size: 0.75rem; margin-bottom: 0.5rem; font-weight: 700; text-transform: uppercase; }
+                     span { color: #f1f5f9; font-weight: 800; font-size: 1.1rem; }
                  }
              }
         }

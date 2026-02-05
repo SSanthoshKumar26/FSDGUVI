@@ -56,9 +56,10 @@ const NavStyled = styled.nav`
         position: fixed;
         left: ${props => props.$isOpen ? '0' : '-100%'};
         top: 0;
-        width: 80%;
-        max-width: 300px;
-        box-shadow: ${props => props.$isOpen ? '0 0 50px rgba(0,0,0,0.5)' : 'none'};
+        width: 85%;
+        max-width: 320px;
+        height: 100vh;
+        box-shadow: ${props => props.$isOpen ? '0 0 50px rgba(0,0,0,0.8)' : 'none'};
     }
 
     .user-con{
