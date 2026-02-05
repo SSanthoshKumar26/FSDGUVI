@@ -145,41 +145,76 @@ const ModalOverlay = styled(motion.div)`
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.75);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
     backdrop-filter: blur(8px);
+    padding: 20px;
+
     .modal-content{
         background: var(--color-secondary);
-        padding: 2.5rem;
-        border-radius: 24px;
-        width: 90%;
+        border-radius: 28px;
+        width: 100%;
         max-width: 550px;
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         border: 1px solid var(--color-border);
         color: var(--color-text-main);
+        overflow: hidden; /* Header stays fixed, body scrolls */
         
         .modal-header {
+           padding: 2rem 2.5rem 1rem 2.5rem;
            display: flex;
            justify-content: space-between;
            align-items: center;
-           margin-bottom: 2rem;
+           border-bottom: 1px solid var(--color-border);
+           flex-shrink: 0; /* Header doesn't shrink */
+
            h2{
                 color: var(--color-text-main);
-                font-size: 1.8rem;
-                font-weight: 700;
+                font-size: 1.6rem;
+                font-weight: 800;
                 margin: 0;
+                letter-spacing: -0.5px;
             }
             .close-btn{
+                background: var(--color-primary);
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 color: var(--color-text-muted);
-                font-size: 1.4rem;
+                font-size: 1.1rem;
                 cursor: pointer;
-                transition: color 0.2s;
+                transition: all 0.3s ease;
+                border: 1px solid var(--color-border);
                 &:hover{
-                    color: var(--color-accent-pink);
+                    background: var(--color-accent-pink);
+                    color: #fff;
+                    transform: rotate(90deg);
                 }
+            }
+        }
+
+        /* Wrap Form in a scrollable container */
+        form {
+            padding: 1.5rem 2.5rem 2.5rem 2.5rem;
+            overflow-y: auto;
+            flex: 1;
+
+            &::-webkit-scrollbar {
+                width: 6px;
+            }
+            &::-webkit-scrollbar-thumb {
+                background: var(--color-text-muted);
+                border-radius: 10px;
+                opacity: 0.3;
             }
         }
     }
