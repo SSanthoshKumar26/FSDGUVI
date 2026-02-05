@@ -23,14 +23,14 @@ function History() {
                     <div key={_id} className="history-item">
                         <div className="title-con">
                             <p style={{
-                                color: type === 'expense' ? '#f472b6' : '#34d399'
+                                color: type === 'expense' ? 'var(--color-accent-pink)' : 'var(--color-accent-green)'
                             }}>
                                 {title} {type === 'expense' && emotionMap[emotion || 'neutral']}
                             </p>
                         </div>
 
                         <p style={{
-                            color: type === 'expense' ? '#f472b6' : '#34d399'
+                            color: type === 'expense' ? 'var(--color-accent-pink)' : 'var(--color-accent-green)'
                         }}>
                             {
                                 type === 'expense' ? `-${amount <= 0 ? 0 : amount}` : `+${amount <= 0 ? 0 : amount}`
@@ -47,18 +47,22 @@ const HistoryStyled = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    h3 { margin-top: 0; color: #f8fafc; }
+    h3 { 
+        margin-top: 0; 
+        color: var(--color-text-main); 
+    }
     .history-item{
-        background: #1e293b;
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        background: var(--color-secondary);
+        border: 1px solid var(--color-border);
         padding: 1rem;
         border-radius: 16px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        transition: 0.2s;
+        transition: all 0.3s ease;
         &:hover {
-             background: #253347;
+             border-color: var(--color-accent-cyan);
+             transform: translateX(5px);
         }
     }
 `;

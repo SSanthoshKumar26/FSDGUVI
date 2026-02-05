@@ -29,6 +29,12 @@ ChartJS.register(
 function Chart() {
     const { incomes, expenses } = useGlobalContext()
 
+    const getStyle = (variable) => getComputedStyle(document.documentElement).getPropertyValue(variable).trim();
+    const colorGreen = getStyle('--color-accent-green') || '#10b981';
+    const colorPink = getStyle('--color-accent-pink') || '#f43f5e';
+    const colorMuted = getStyle('--color-text-muted') || '#94a3b8';
+    const colorBorder = getStyle('--color-border') || 'rgba(0,0,0,0.1)';
+
     const data = {
         labels: incomes.map((inc) => {
             const { date } = inc
@@ -37,34 +43,22 @@ function Chart() {
         datasets: [
             {
                 label: 'Income',
-                data: [
-                    ...incomes.map((income) => {
-                        const { amount } = income
-                        return amount
-                    })
-                ],
-                backgroundColor: '#34d399',
-                borderColor: '#34d399',
+                data: incomes.map((income) => income.amount),
+                backgroundColor: colorGreen,
+                borderColor: colorGreen,
                 tension: .2,
-                pointBackgroundColor: '#34d399',
+                pointBackgroundColor: colorGreen,
             },
             {
                 label: 'Expenses',
-                data: [
-                    ...expenses.map((expense) => {
-                        const { amount } = expense
-                        return amount
-                    })
-                ],
-                backgroundColor: '#f472b6',
-                borderColor: '#f472b6',
+                data: expenses.map((expense) => expense.amount),
+                backgroundColor: colorPink,
+                borderColor: colorPink,
                 tension: .2,
-                pointBackgroundColor: '#f472b6',
+                pointBackgroundColor: colorPink,
             }
         ]
     }
-
-    const getStyle = (variable) => getComputedStyle(document.documentElement).getPropertyValue(variable).trim();
 
     const options = {
         responsive: true,
@@ -72,18 +66,18 @@ function Chart() {
         plugins: {
             legend: {
                 labels: {
-                    color: getStyle('--color-text-muted') || '#94a3b8'
+                    color: colorMuted
                 }
             }
         },
         scales: {
             x: {
-                ticks: { color: getStyle('--color-text-muted') || '#94a3b8' },
-                grid: { color: getStyle('--color-border') || 'rgba(0,0,0,0.1)' }
+                ticks: { color: colorMuted },
+                grid: { color: colorBorder }
             },
             y: {
-                ticks: { color: getStyle('--color-text-muted') || '#94a3b8' },
-                grid: { color: getStyle('--color-border') || 'rgba(0,0,0,0.1)' }
+                ticks: { color: colorMuted },
+                grid: { color: colorBorder }
             }
         }
     }

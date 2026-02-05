@@ -2,16 +2,25 @@
 const mongoose = require('mongoose');
 const axios = require('axios');
 const Transaction = require('../models/Transaction');
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../.env') }); // Explicit .env path
 
 const sendSummaryMail = async (targetEmail) => {
-    console.log('Generating premium daily summary report...');
+    console.log('🔹 Script Started: Generating daily summary report...');
     const emailToUse = targetEmail || "srisrikanthtvs@gmail.com";
+    console.log(`🔹 Target Email: ${emailToUse}`);
+
+    // Debug Keys (Masked)
+    const pubKey = process.env.EMAILJS_PUBLIC_KEY;
+    const privKey = process.env.EMAILJS_PRIVATE_KEY;
+    console.log(`🔹 Public Key Loaded: ${pubKey ? (pubKey.substring(0, 4) + '...') : 'FAIL'}`);
+    console.log(`🔹 Private Key Loaded: ${privKey ? (privKey.substring(0, 4) + '...') : 'FAIL'}`);
 
     try {
         await mongoose.connect(process.env.MONGO_URI);
+        console.log("✅ DB Connected in Script");
     } catch (error) {
-        console.error('DB Connection Failed', error);
+        console.error('❌ DB Connection Failed', error);
         return;
     }
 
@@ -20,10 +29,17 @@ const sendSummaryMail = async (targetEmail) => {
     const endOfDay = new Date();
     endOfDay.setHours(23, 59, 59, 999);
 
+    console.log(`🔹 Query Range: ${startOfDay.toISOString()} to ${endOfDay.toISOString()}`);
+
     try {
-        const transactions = await Transaction.find({
-            date: { $gte: startOfDay, $lte: endOfDay }
-        });
+        /* Debug: Fetch last 5 transactions regardless of date to verify connectivity */
+        const transactions = await Transaction.find().sort({ createdAt: -1 }).limit(5);
+
+        console.log(`🔹 (DEBUG) Fetched ${transactions.length} recent transactions (ignoring date filter).`);
+        if (transactions.length > 0) {
+            console.log('🔹 Most Recent Tx Date:', transactions[0].date);
+            console.log('🔹 Most Recent Tx CreatedAt:', transactions[0].createdAt);
+        }
 
         const incomeTransactions = transactions.filter(t => t.type === 'income');
         const expenseTransactions = transactions.filter(t => t.type === 'expense');
@@ -31,6 +47,9 @@ const sendSummaryMail = async (targetEmail) => {
         const totalIncome = incomeTransactions.reduce((acc, curr) => acc + curr.amount, 0);
         const totalExpense = expenseTransactions.reduce((acc, curr) => acc + curr.amount, 0);
         const balance = totalIncome - totalExpense;
+
+        console.log(`🔹 Stats: Income=${totalIncome}, Expense=${totalExpense}, Balance=${balance}`);
+
 
         const subject = `✨ Money Insight: Your Daily Report for ${startOfDay.toLocaleDateString('en-IN')}`;
 
@@ -144,15 +163,36 @@ const sendSummaryMail = async (targetEmail) => {
                 template_id: process.env.EMAILJS_TEMPLATE_ID,
                 user_id: process.env.EMAILJS_PUBLIC_KEY,
                 accessToken: process.env.EMAILJS_PRIVATE_KEY,
+
                 template_params: {
                     to_email: emailToUse,
-                    subject: subject,
-                    message: htmlContent
+
+                    report_date: startOfDay.toLocaleDateString('en-IN', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    }),
+
+                    balance: balance.toLocaleString('en-IN'),
+                    totalIncome: totalIncome.toLocaleString('en-IN'),
+                    totalExpense: totalExpense.toLocaleString('en-IN'),
+
+                    balance_color: balance >= 0 ? '#0c4a6e' : '#991b1b',
+                    status_bg: balance >= 0 ? '#dcfce7' : '#fee2e2',
+                    status_color: balance >= 0 ? '#166534' : '#991b1b',
+                    status_text: balance >= 0 ? '🏆 POSITIVE DAY' : '📉 OVER BUDGET',
+
+                    advice_text:
+                        balance > 0
+                            ? "You're building a strong financial habit. Keep saving consistently!"
+                            : "Try reviewing your expenses tomorrow and focus on essentials."
                 }
             };
 
-            await axios.post('https://api.emailjs.com/api/v1.0/email/send', emailData);
-            console.log('✅ Premium Summary Email sent via EmailJS');
+            const response = await axios.post('https://api.emailjs.com/api/v1.0/email/send', emailData);
+            console.log('✅ EmailJS Response:', response.data);
+            console.log('✅ Premium Summary Email request finished');
         } catch (emailError) {
             console.error('EmailJS Error:', emailError.response?.data || emailError.message);
         }

@@ -21,9 +21,12 @@ exports.sendSummaryMailTrigger = (req, res) => {
     const command = email ? `node ${scriptPath} "${email}"` : `node ${scriptPath}`;
 
     exec(command, (err, stdout, stderr) => {
+        if (stdout) console.log('📝 Mail Script Output:', stdout);
+        if (stderr) console.error('⚠️ Mail Script Error Output:', stderr);
+
         if (err) {
             console.error('Error triggering summary mail:', err);
-            return res.status(500).json({ message: 'Failed to send summary email', error: err.message });
+            return res.status(500).json({ message: 'Failed to send summary email', error: err.message, output: stdout });
         }
         res.status(200).json({ message: 'Summary email triggered successfully', output: stdout });
     });

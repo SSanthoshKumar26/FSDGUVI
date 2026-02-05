@@ -140,6 +140,7 @@ function Form({ closeCallback }) {
                         className="date-picker-input"
                     />
                 </div>
+
                 <div className="input-control">
                     <label>Category</label>
                     <select required value={category} name="category" id="category" onChange={handleInput('category')}>
