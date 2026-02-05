@@ -138,10 +138,27 @@ const sendSummaryMail = async (targetEmail) => {
             </html>
         `;
 
-        await sendEmail(emailToUse, subject, htmlContent);
+        try {
+            const emailData = {
+                service_id: process.env.EMAILJS_SERVICE_ID,
+                template_id: process.env.EMAILJS_TEMPLATE_ID,
+                user_id: process.env.EMAILJS_PUBLIC_KEY,
+                accessToken: process.env.EMAILJS_PRIVATE_KEY,
+                template_params: {
+                    to_email: emailToUse,
+                    subject: subject,
+                    message: htmlContent
+                }
+            };
+
+            await axios.post('https://api.emailjs.com/api/v1.0/email/send', emailData);
+            console.log('✅ Premium Summary Email sent via EmailJS');
+        } catch (emailError) {
+            console.error('EmailJS Error:', emailError.response?.data || emailError.message);
+        }
 
     } catch (error) {
-        console.error('Error in Summary Mail:', error);
+        console.error('General Error in Summary Mail:', error);
     } finally {
         await mongoose.disconnect();
     }
